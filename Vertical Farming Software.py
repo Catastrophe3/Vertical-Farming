@@ -1,11 +1,20 @@
 # Determine name of plant
-plant1 = input("Enter type of plant: ")
+question = input("Do you want to search a plant or submit a plant?" )
+
 
 # Convert input to lowercase
-plant1_lower = plant1.lower()
+
 
 # Define the plant requirements dictionary
-all_plants = {
+
+
+
+
+# Check if the plant is in the dictionary and output the requirements
+if question == "search":
+    plant1 = input("Enter type of plant: ")
+    plant1_lower = plant1.lower()
+    all_plants = {
     "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
     "kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
     "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
@@ -30,11 +39,11 @@ all_plants = {
     "oregano": {"moisture": "low to moderate", "sunlight": "full sun", "nutrients": "low"},
     "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "nutrients": "low to moderate"},
     "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
-}
+    }
+elif question == "submit":
+    newPlant = input("Enter name of plant:")
+    
 
-
-
-# Check if the plant is in the dictionary and output the requirements
 if plant1_lower in all_plants:
     requirements = all_plants[plant1_lower]
     print(f"\n{plant1_lower.capitalize()} Requirements:")
@@ -42,4 +51,4 @@ if plant1_lower in all_plants:
     print("Sunlight:", requirements["sunlight"])
     print("Nutrients:", requirements["nutrients"])
 else:
-    print(f"Sorry, {plant1} is not in our plant database.")
+    print(f"Enter information about {plant1}")
