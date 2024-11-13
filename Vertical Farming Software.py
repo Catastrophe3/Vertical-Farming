@@ -1,20 +1,4 @@
-# Determine name of plant
-question = input("Do you want to search a plant or submit a plant?" )
-
-
-# Convert input to lowercase
-
-
-# Define the plant requirements dictionary
-
-
-
-
-# Check if the plant is in the dictionary and output the requirements
-if question == "search":
-    plant1 = input("Enter type of plant: ")
-    plant1_lower = plant1.lower()
-    all_plants = {
+ all_plants = {
     "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
     "kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
     "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
@@ -40,6 +24,14 @@ if question == "search":
     "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "nutrients": "low to moderate"},
     "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
     }
+
+# Determine if user is searching info on plant or submitting a plant type and info  
+question = input("Do you want to search a plant or submit a plant?" )
+
+if question == "search":
+    plant1 = input("Enter type of plant: ")
+    plant1_lower = plant1.lower()
+   
 elif question == "submit":
     newPlant = input("Enter name of plant:")
     
