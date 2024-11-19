@@ -1,5 +1,4 @@
- all_plants = {
-    "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
+all_plants =  {"lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
     "kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
     "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
     "basil": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
@@ -25,22 +24,37 @@
     "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
     }
 
-# Determine if user is searching info on plant or submitting a plant type and info  
-question = input("Do you want to search a plant or submit a plant?" )
+new_plant_database = {}  # Separate database for newly added plants
 
-if question == "search":
-    plant1 = input("Enter type of plant: ")
-    plant1_lower = plant1.lower()
-   
-elif question == "submit":
-    newPlant = input("Enter name of plant:")
-    
+while True:
+    question = input("Do you want to search info on a plant or add a new plant?(search|add|exit) ").lower()
+    if question == "exit":
+        break
 
-if plant1_lower in all_plants:
-    requirements = all_plants[plant1_lower]
-    print(f"\n{plant1_lower.capitalize()} Requirements:")
-    print("Moisture:", requirements["moisture"])
-    print("Sunlight:", requirements["sunlight"])
-    print("Nutrients:", requirements["nutrients"])
-else:
-    print(f"Enter information about {plant1}")
+    if question == "search":
+        plant1 = input("\nEnter type of plant: ").lower()
+        
+        # Search in both databases
+        if plant1 in all_plants:
+            requirements = all_plants[plant1]
+        elif plant1 in new_plant_database:
+            requirements = new_plant_database[plant1]
+        else:
+            print("Plant not found.")
+            continue
+
+        print(f"\n{plant1.capitalize()} Requirements:")
+        print("Moisture:", requirements["moisture"])
+        print("Sunlight:", requirements["sunlight"])
+        print("Nutrients:", requirements["nutrients"])
+
+    elif question == "add":
+        new_plant_name = input("Enter name of plant: ").lower()
+        moisture = input("Enter moisture level (low, moderate, high): ").lower()
+        sunlight = input("Enter sunlight level (full sun, partial shade, indirect light): ").lower()
+        nutrients = input("Enter nutrient level (low, moderate, high): ").lower()
+
+        # Validate and add to the new plant database
+        new_plant_database[new_plant_name] = {"moisture": moisture, "sunlight": sunlight, "nutrients": nutrients}
+        print(f"\n{new_plant_name.capitalize()} has been added to the database.\n")
+
