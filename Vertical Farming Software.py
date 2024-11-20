@@ -27,7 +27,7 @@ all_plants =  {"lettuce": {"moisture": "moderate", "sunlight": "full sun to part
 new_plant_database = {}  # Separate database for newly added plants
 
 while True:
-    question = input("Do you want to search info on a plant or add a new plant?(search|add|exit) ").lower()
+    question = input("Do you want to search info on a plant or add a new plant? (search|add|exit): ").lower()
     if question == "exit":
         break
 
