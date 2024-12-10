@@ -2,11 +2,31 @@ import tkinter as tk
 from tkinter import messagebox
 
 # Pre-defined plant database
-all_plants = {
-    "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
+all_plants =  {"lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
     "kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
-    # ... (add other plants here as per your database)
-}
+    "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "basil": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
+    "mint": {"moisture": "high", "sunlight": "partial shade to full sun", "nutrients": "low"},
+    "cilantro": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
+    "strawberries": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
+    "tomatoes": {"moisture": "moderate to high", "sunlight": "full sun", "nutrients": "high"},
+    "peppers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate to high"},
+    "cucumbers": {"moisture": "high", "sunlight": "full sun", "nutrients": "moderate"},
+    "chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "arugula": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
+    "mustard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "pak choi": {"moisture": "high", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "radishes": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low"},
+    "microgreens": {"moisture": "high", "sunlight": "indirect light to partial shade", "nutrients": "moderate"},
+    "collard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "rocket": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
+    "mizuna": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
+    "swiss chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
+    "baby kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
+    "oregano": {"moisture": "low to moderate", "sunlight": "full sun", "nutrients": "low"},
+    "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "nutrients": "low to moderate"},
+    "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
+    }
 
 new_plant_database = {}
 
