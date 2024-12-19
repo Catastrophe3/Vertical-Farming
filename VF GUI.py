@@ -1,32 +1,35 @@
 import tkinter as tk
 from tkinter import messagebox
 
-# Pre-defined plant database
-all_plants =  {"lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
-    "kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
-    "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "basil": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
-    "mint": {"moisture": "high", "sunlight": "partial shade to full sun", "nutrients": "low"},
-    "cilantro": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
-    "strawberries": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
-    "tomatoes": {"moisture": "moderate to high", "sunlight": "full sun", "nutrients": "high"},
-    "peppers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate to high"},
-    "cucumbers": {"moisture": "high", "sunlight": "full sun", "nutrients": "moderate"},
-    "chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "arugula": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
-    "mustard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "pak choi": {"moisture": "high", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "radishes": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low"},
-    "microgreens": {"moisture": "high", "sunlight": "indirect light to partial shade", "nutrients": "moderate"},
-    "collard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "rocket": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
-    "mizuna": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "low to moderate"},
-    "swiss chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "nutrients": "moderate"},
-    "baby kale": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "moderate"},
-    "oregano": {"moisture": "low to moderate", "sunlight": "full sun", "nutrients": "low"},
-    "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "nutrients": "low to moderate"},
-    "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "nutrients": "low to moderate"},
-    }
+# database of top vertical farming plants
+all_plants = {
+    "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "45-75°F"},
+    "kale": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-80°F"},
+    "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "35-75°F"},
+    "basil": {"moisture": "moderate", "sunlight": "full sun", "temperature": "70-90°F"},
+    "mint": {"moisture": "high", "sunlight": "partial shade to full sun", "temperature": "55-75°F"},
+    "cilantro": {"moisture": "moderate", "sunlight": "full sun", "temperature": "50-85°F"},
+    "strawberries": {"moisture": "moderate", "sunlight": "full sun", "temperature": "60-80°F"},
+    "tomatoes": {"moisture": "moderate to high", "sunlight": "full sun", "temperature": "65-85°F"},
+    "peppers": {"moisture": "moderate", "sunlight": "full sun", "temperature": "65-85°F"},
+    "cucumbers": {"moisture": "high", "sunlight": "full sun", "temperature": "65-95°F"},
+    "chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "50-80°F"},
+    "arugula": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
+    "mustard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "45-75°F"},
+    "pak choi": {"moisture": "high", "sunlight": "full sun to partial shade", "temperature": "50-85°F"},
+    "radishes": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-70°F"},
+    "microgreens": {"moisture": "high", "sunlight": "indirect light to partial shade", "temperature": "60-75°F"},
+    "collard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
+    "rocket": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
+    "mizuna": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
+    "swiss chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "50-80°F"},
+    "baby kale": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-80°F"},
+    "oregano": {"moisture": "low to moderate", "sunlight": "full sun", "temperature": "60-85°F"},
+    "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "temperature": "55-75°F"},
+    "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "temperature": "70-95°F"},
+}
+
+
 
 new_plant_database = {}
 
@@ -52,7 +55,7 @@ def search_plant():
         f"Plant: {plant_name.capitalize()}\n"
         f"Moisture: {plant_data['moisture']}\n"
         f"Sunlight: {plant_data['sunlight']}\n"
-        f"Nutrients: {plant_data['nutrients']}"
+        f"Temperature: {plant_data['temperature']}"
     )
     text_result.delete(1.0, tk.END)
     text_result.insert(tk.END, result)
@@ -61,26 +64,26 @@ def add_plant():
     name = entry_name.get().strip().lower()
     moisture = entry_moisture.get().strip().lower()
     sunlight = entry_sunlight.get().strip().lower()
-    nutrients = entry_nutrients.get().strip().lower()
+    temperature = entry_temperature.get().strip().lower()
 
-    if not name or not moisture or not sunlight or not nutrients:
+    if not name or not moisture or not sunlight or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
-
-    new_plant_database[name] = {"moisture": moisture, "sunlight": sunlight, "nutrients": nutrients}
+    
+    new_plant_database[name] = {"moisture": moisture, "sunlight": sunlight, "temperature": temperature}
     messagebox.showinfo("Success", f"{name.capitalize()} has been added to the database!")
     entry_name.delete(0, tk.END)
     entry_moisture.delete(0, tk.END)
     entry_sunlight.delete(0, tk.END)
-    entry_nutrients.delete(0, tk.END)
+    entry_temperature.delete(0, tk.END)
 
-# GUI setup
+# Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
 root.geometry("800x600")
 root.configure(bg=BG_COLOR)
 
-# Search Frame
+# Search Framework
 frame_search = tk.Frame(root, bg=BG_COLOR)
 frame_search.pack(pady=20)
 tk.Label(frame_search, text="Search for Plant:", font=("Arial", 14), bg=BG_COLOR, fg=FG_COLOR).grid(row=0, column=0, padx=10, pady=10)
@@ -92,7 +95,7 @@ tk.Button(frame_search, text="Search", font=("Arial", 14), bg=BUTTON_COLOR, fg=F
 text_result = tk.Text(root, height=10, width=70, font=("Arial", 12), bg=TEXT_BG, fg=TEXT_FG)
 text_result.pack(pady=20)
 
-# Add Plant Frame
+# Add Plant to database
 frame_add = tk.Frame(root, bg=BG_COLOR)
 frame_add.pack(pady=10)
 tk.Label(frame_add, text="Add New Plant", font=("Arial Bold", 16), bg=BG_COLOR, fg=FG_COLOR).grid(row=0, column=0, columnspan=2, pady=10)
@@ -105,10 +108,10 @@ entry_moisture.grid(row=2, column=1, padx=10, pady=10)
 tk.Label(frame_add, text="Sunlight:", font=("Arial", 14), bg=BG_COLOR, fg=FG_COLOR).grid(row=3, column=0, padx=10, pady=10)
 entry_sunlight = tk.Entry(frame_add, font=("Arial", 14), width=30)
 entry_sunlight.grid(row=3, column=1, padx=10, pady=10)
-tk.Label(frame_add, text="Nutrients:", font=("Arial", 14), bg=BG_COLOR, fg=FG_COLOR).grid(row=4, column=0, padx=10, pady=10)
-entry_nutrients = tk.Entry(frame_add, font=("Arial", 14), width=30)
-entry_nutrients.grid(row=4, column=1, padx=10, pady=10)
+tk.Label(frame_add, text="Temperature:", font=("Arial", 14), bg=BG_COLOR, fg=FG_COLOR).grid(row=4, column=0, padx=10, pady=10)
+entry_temperature = tk.Entry(frame_add, font=("Arial", 14), width=30)
+entry_temperature.grid(row=4, column=1, padx=10, pady=10)
 tk.Button(frame_add, text="Add Plant", font=("Arial", 14), bg=BUTTON_COLOR, fg=FG_COLOR, command=add_plant).grid(row=5, column=0, columnspan=2, pady=20)
 
-# Run the application
+#Finally run
 root.mainloop()
