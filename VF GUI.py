@@ -64,7 +64,7 @@ def open_dashboard():
         dashboard_window.geometry("800x600")  # You might want to adjust this
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
-        dashboard_label = tk.Label(dashboard_window, text="Dashboard", font=("Ariel Bold", 30), bg="#ece9e8", fg="#000000")
+        dashboard_label = tk.Label(dashboard_window, text="Dashboard", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000")
         dashboard_label.pack(pady=50)
 
 def close_dashboard():
