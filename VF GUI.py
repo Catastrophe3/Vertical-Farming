@@ -53,7 +53,7 @@ def add_plant():
     entry_sunlight.delete(0, tk.END)
     entry_temperature.delete(0, tk.END)
 
-# Dashboard functions (same as before)
+# Dashboard functions 
 dashboard_window = None
 
 def open_dashboard():
@@ -73,6 +73,26 @@ def close_dashboard():
         dashboard_window.destroy()
         dashboard_window = None
 
+# Inventory functions 
+inventory_window = None
+
+def open_inventory():
+    global inventory_window
+    if inventory_window is None or not tk.Toplevel.winfo_exists(inventory_window):
+        inventory_window = tk.Toplevel(root)
+        inventory_window.title("Inventory")
+        inventory_window.geometry("800x600")  # You might want to adjust this
+        inventory_window.configure(bg="#FFFFFF")
+        inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
+        inventory_label = tk.Label(inventory_window, text="Inventory", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000")
+        inventory_label.pack(pady=50)
+
+def close_inventory():
+    global inventory_window
+    if inventory_window:
+        inventory_window.destroy()
+        inventory_window = None
+
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
@@ -85,13 +105,19 @@ except Exception:
     pass
 
 # Scaling (improved)
-root.tk.call("tk", "scaling", 1.5) #Adjust this number to change the scaling
+root.tk.call("tk", "scaling", 1.9) #Adjust this number to change the scaling
 
 # Dashboard Button (improved layout)
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)  # Increased padding
 dashboard_button = tk.Button(button_frame, text="Dashboard", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_dashboard)  # Enlarged font size
 dashboard_button.pack()
+
+# Inventory Button 
+button_frame = tk.Frame(root, bg=BG_COLOR)
+button_frame.pack(anchor=tk.NW, padx=30)  
+inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_inventory)  # Enlarged font size
+inventory_button.pack()
 
 # Add Plant Frame (improved layout and font sizes)
 frame_add = tk.Frame(root, bg=BG_COLOR)
