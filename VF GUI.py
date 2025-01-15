@@ -124,7 +124,7 @@ frame_add = tk.Frame(root, bg=BG_COLOR)
 frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0,30))  # Added more padding and increased size
 
 tk.Label(frame_add, text="Add New Plant", font=("Arial Bold", 48), bg=BG_COLOR, fg="#000000").pack(pady=(30, 30))  # Increased font size and padding
-tk.Label(frame_add, text="Name:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 35))
+tk.Label(frame_add, text="Name:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 10))
 entry_name = tk.Entry(frame_add, font=("Arial", 18), width=40)  # Increased font size and width
 entry_name.pack(pady=(0,15))
 
