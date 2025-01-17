@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 import ctypes
+from tkinter import ttk
 
 BG_COLOR = "#3498db"
 FG_COLOR = "#ffffff"
@@ -53,6 +54,14 @@ def add_plant():
     entry_sunlight.delete(0, tk.END)
     entry_temperature.delete(0, tk.END)
 
+    # Refresh table if inventory window is open
+    if inventory_window and inventory_table:
+        inventory_table.insert("", "end", values=(name, moisture, sunlight, temperature))
+
+# Inventory functions 
+inventory_window = None
+inventory_table = None
+
 # Dashboard functions 
 dashboard_window = None
 
@@ -61,11 +70,15 @@ def open_dashboard():
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
         dashboard_window = tk.Toplevel(root)
         dashboard_window.title("Dashboard")
-        dashboard_window.geometry("800x600")  # You might want to adjust this
+        dashboard_window.geometry("800x600")  # Set appropriate size
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
-        dashboard_label = tk.Label(dashboard_window, text="Dashboard", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000")
-        dashboard_label.pack(pady=50)
+
+        tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=20)
+
+        # Add placeholder content for the dashboard
+        tk.Label(dashboard_window, text="Welcome to the Dashboard!", font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
+        tk.Label(dashboard_window, text="This area will display analytics or information as needed.", font=("Arial", 14), bg="#FFFFFF", fg="#000000").pack(pady=10)
 
 def close_dashboard():
     global dashboard_window
@@ -73,19 +86,36 @@ def close_dashboard():
         dashboard_window.destroy()
         dashboard_window = None
 
-# Inventory functions 
-inventory_window = None
-
 def open_inventory():
-    global inventory_window
+    global inventory_window, inventory_table
     if inventory_window is None or not tk.Toplevel.winfo_exists(inventory_window):
         inventory_window = tk.Toplevel(root)
         inventory_window.title("Inventory")
-        inventory_window.geometry("800x600")  # You might want to adjust this
+        inventory_window.geometry("800x600")
         inventory_window.configure(bg="#FFFFFF")
         inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
-        inventory_label = tk.Label(inventory_window, text="Inventory", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000")
-        inventory_label.pack(pady=50)
+
+        tk.Label(inventory_window, text="Inventory", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=20)
+
+        #Table Styling
+        style = ttk.Style()
+        style.configure("Treeview", font=("Arial", 12) , rowheight=80, padx=30, pady=120) #Font of table data
+        style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
+
+        # Create table
+        columns = ("Name", "Moisture", "Sunlight", "Temperature")
+        inventory_table = ttk.Treeview(inventory_window, columns=columns, show="headings", height=100)
+
+        # Define column headings
+        for col in columns:
+            inventory_table.heading(col, text=col)
+            inventory_table.column(col, width=150, anchor="center")
+
+        inventory_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=110)
+
+        # Populate table with existing plants
+        for name, data in new_plant_database.items():
+            inventory_table.insert("", "end", values=(name, data["moisture"], data["sunlight"], data["temperature"]))
 
 def close_inventory():
     global inventory_window
@@ -96,50 +126,47 @@ def close_inventory():
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
-root.geometry("1000x800")  # Larger window size
+root.geometry("1000x800")
 root.configure(bg=BG_COLOR)
 
 try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(1)  # For Windows DPI awareness
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
 except Exception:
     pass
 
-# Scaling (improved)
-root.tk.call("tk", "scaling", 1.9) #Adjust this number to change the scaling
+root.tk.call("tk", "scaling", 1.9)
 
-# Dashboard Button (improved layout)
+# Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
-button_frame.pack(anchor=tk.NW, padx=30, pady=30)  # Increased padding
-dashboard_button = tk.Button(button_frame, text="Dashboard", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_dashboard)  # Enlarged font size
+button_frame.pack(anchor=tk.NW, padx=30, pady=30)
+dashboard_button = tk.Button(button_frame, text="Dashboard", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_dashboard)
 dashboard_button.pack()
 
-# Inventory Button 
-button_frame = tk.Frame(root, bg=BG_COLOR)
-button_frame.pack(anchor=tk.NW, padx=30)  
-inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_inventory)  # Enlarged font size
-inventory_button.pack()
+# Inventory Button
+inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_inventory)
+inventory_button.pack(pady=10)
 
-# Add Plant Frame (improved layout and font sizes)
+# Add Plant Frame
 frame_add = tk.Frame(root, bg=BG_COLOR)
-frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0,30))  # Added more padding and increased size
+frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0, 30))
 
-tk.Label(frame_add, text="Add New Plant", font=("Arial Bold", 48), bg=BG_COLOR, fg="#000000").pack(pady=(30, 30))  # Increased font size and padding
+tk.Label(frame_add, text="Add New Plant", font=("Arial Bold", 48), bg=BG_COLOR, fg="#000000").pack(pady=(30, 30))
 tk.Label(frame_add, text="Name:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 10))
-entry_name = tk.Entry(frame_add, font=("Arial", 18), width=40)  # Increased font size and width
-entry_name.pack(pady=(0,15))
+entry_name = tk.Entry(frame_add, font=("Arial", 18), width=40)
+entry_name.pack(pady=(0, 15))
 
 tk.Label(frame_add, text="Moisture:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_moisture = tk.Entry(frame_add, font=("Arial", 18), width=40)
-entry_moisture.pack(pady=(0,15))
+entry_moisture.pack(pady=(0, 15))
 
 tk.Label(frame_add, text="Sunlight:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_sunlight = tk.Entry(frame_add, font=("Arial", 18), width=40)
-entry_sunlight.pack(pady=(0,15))
+entry_sunlight.pack(pady=(0, 15))
 
 tk.Label(frame_add, text="Temperature:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_temperature = tk.Entry(frame_add, font=("Arial", 18), width=40)
-entry_temperature.pack(pady=(0,15))
+entry_temperature.pack(pady=(0, 15))
 
-tk.Button(frame_add, text="Add Plant", font=("Arial", 18), bg=BUTTON_COLOR, fg=FG_COLOR, command=add_plant).pack(pady=(30, 40))  # Increased font size and padding
+tk.Button(frame_add, text="Add Plant", font=("Arial", 18), bg=BUTTON_COLOR, fg=FG_COLOR, command=add_plant).pack(pady=(30, 40))
 
 root.mainloop()
