@@ -3,8 +3,8 @@ from tkinter import messagebox
 import ctypes
 from tkinter import ttk
 
-BG_COLOR = "#3498db"
-FG_COLOR = "#ffffff"
+BG_COLOR = "#bdd9bf"
+FG_COLOR = "#2e7d32"
 BUTTON_COLOR = "#2ecc71"
 
 # Database of top vertical farming plants (unchanged)
@@ -139,11 +139,11 @@ root.tk.call("tk", "scaling", 1.9)
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)
-dashboard_button = tk.Button(button_frame, text="Dashboard", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_dashboard)
+dashboard_button = tk.Button(button_frame, text="Dashboard", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_dashboard)
 dashboard_button.pack()
 
 # Inventory Button
-inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg=FG_COLOR, command=open_inventory)
+inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_inventory)
 inventory_button.pack(pady=10)
 
 # Add Plant Frame
@@ -151,22 +151,22 @@ frame_add = tk.Frame(root, bg=BG_COLOR)
 frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0, 30))
 
 tk.Label(frame_add, text="Add New Plant", font=("Arial Bold", 48), bg=BG_COLOR, fg="#000000").pack(pady=(30, 30))
-tk.Label(frame_add, text="Name:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 10))
+tk.Label(frame_add, text="Name:", font=("Arial Bold", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 10))
 entry_name = tk.Entry(frame_add, font=("Arial", 18), width=40)
 entry_name.pack(pady=(0, 15))
 
-tk.Label(frame_add, text="Moisture:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
+tk.Label(frame_add, text="Moisture:", font=("Arial Bold", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_moisture = tk.Entry(frame_add, font=("Arial", 18), width=40)
 entry_moisture.pack(pady=(0, 15))
 
-tk.Label(frame_add, text="Sunlight:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
+tk.Label(frame_add, text="Sunlight:", font=("Arial Bold", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_sunlight = tk.Entry(frame_add, font=("Arial", 18), width=40)
 entry_sunlight.pack(pady=(0, 15))
 
-tk.Label(frame_add, text="Temperature:", font=("Arial", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
+tk.Label(frame_add, text="Temperature:", font=("Arial Bold", 18), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 10))
 entry_temperature = tk.Entry(frame_add, font=("Arial", 18), width=40)
 entry_temperature.pack(pady=(0, 15))
 
-tk.Button(frame_add, text="Add Plant", font=("Arial", 18), bg=BUTTON_COLOR, fg=FG_COLOR, command=add_plant).pack(pady=(30, 40))
+tk.Button(frame_add, text="Add Plant", font=("Ariel", 21), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
 
 root.mainloop()
