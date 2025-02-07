@@ -9,30 +9,30 @@ BUTTON_COLOR = "#2ecc71"
 
 # Database of top vertical farming plants (unchanged)
 all_plants = {
-    "lettuce": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "45-75°F"},
-    "kale": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-80°F"},
-    "spinach": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "35-75°F"},
-    "basil": {"moisture": "moderate", "sunlight": "full sun", "temperature": "70-90°F"},
-    "mint": {"moisture": "high", "sunlight": "partial shade to full sun", "temperature": "55-75°F"},
-    "cilantro": {"moisture": "moderate", "sunlight": "full sun", "temperature": "50-85°F"},
-    "strawberries": {"moisture": "moderate", "sunlight": "full sun", "temperature": "60-80°F"},
-    "tomatoes": {"moisture": "moderate to high", "sunlight": "full sun", "temperature": "65-85°F"},
-    "peppers": {"moisture": "moderate", "sunlight": "full sun", "temperature": "65-85°F"},
-    "cucumbers": {"moisture": "high", "sunlight": "full sun", "temperature": "65-95°F"},
-    "chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "50-80°F"},
-    "arugula": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
-    "mustard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "45-75°F"},
-    "pak choi": {"moisture": "high", "sunlight": "full sun to partial shade", "temperature": "50-85°F"},
-    "radishes": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-70°F"},
-    "microgreens": {"moisture": "high", "sunlight": "indirect light to partial shade", "temperature": "60-75°F"},
-    "collard greens": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
-    "rocket": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
-    "mizuna": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "40-75°F"},
-    "swiss chard": {"moisture": "moderate", "sunlight": "full sun to partial shade", "temperature": "50-80°F"},
-    "baby kale": {"moisture": "moderate", "sunlight": "full sun", "temperature": "40-80°F"},
-    "oregano": {"moisture": "low to moderate", "sunlight": "full sun", "temperature": "60-85°F"},
-    "lemon balm": {"moisture": "moderate", "sunlight": "partial shade to full sun", "temperature": "55-75°F"},
-    "zinnia flowers": {"moisture": "moderate", "sunlight": "full sun", "temperature": "70-95°F"},
+    "Lettuce": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "45-75°F"},
+    "Kale": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "40-80°F"},
+    "Spinach": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "35-75°F"},
+    "Basil": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "70-90°F"},
+    "Mint": {"Moisture": "High", "Sunlight": "Partial Shade To Full Sun", "Temperature": "55-75°F"},
+    "Cilantro": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "50-85°F"},
+    "Strawberries": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "60-80°F"},
+    "Tomatoes": {"Moisture": "Moderate To High", "Sunlight": "Full Sun", "Temperature": "65-85°F"},
+    "Peppers": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "65-85°F"},
+    "Cucumbers": {"Moisture": "High", "Sunlight": "Full Sun", "Temperature": "65-95°F"},
+    "Chard": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "50-80°F"},
+    "Arugula": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "40-75°F"},
+    "Mustard Greens": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "45-75°F"},
+    "Pak Choi": {"Moisture": "High", "Sunlight": "Full Sun To Partial Shade", "Temperature": "50-85°F"},
+    "Radishes": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "40-70°F"},
+    "Microgreens": {"Moisture": "High", "Sunlight": "Indirect Light To Partial Shade", "Temperature": "60-75°F"},
+    "Collard Greens": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "40-75°F"},
+    "Rocket": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "40-75°F"},
+    "Mizuna": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "40-75°F"},
+    "Swiss Chard": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "50-80°F"},
+    "Baby Kale": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "40-80°F"},
+    "Oregano": {"Moisture": "Low To Moderate", "Sunlight": "Full Sun", "Temperature": "60-85°F"},
+    "Lemon Balm": {"Moisture": "Moderate", "Sunlight": "Partial Shade To Full Sun", "Temperature": "55-75°F"},
+    "Zinnia Flowers": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "70-95°F"},
 }
 
 new_plant_database = {}
@@ -65,6 +65,8 @@ inventory_table = None
 # Dashboard functions 
 dashboard_window = None
 
+
+
 def open_dashboard():
     global dashboard_window
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
@@ -74,7 +76,7 @@ def open_dashboard():
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
 
-        tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=20)
+        tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=30)
 
         # Add placeholder content for the dashboard
         tk.Label(dashboard_window, text="Welcome to the Dashboard!", font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
@@ -123,6 +125,43 @@ def close_inventory():
         inventory_window.destroy()
         inventory_window = None
 
+def open_recommendations():
+    global recommendations_window, recommendations_text
+    recommendations_window = None  # Declare this globally
+    if recommendations_window is None or not recommendations_window.winfo_exists():
+
+        recommendations_window = tk.Toplevel(root)
+        recommendations_window.title("Plant Recommendations")
+        recommendations_window.geometry("800x600")
+        recommendations_window.configure(bg="#FFFFFF")
+        recommendations_window.protocol("WM_DELETE_WINDOW", close_recommendations)
+
+        tk.Label(recommendations_window, text="Plant Recommendations", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=40)
+
+        #Table Styling
+        style = ttk.Style()
+        style.configure("Treeview", font=("Arial", 12) , rowheight=80, padx=30, pady=120) #Font of table data
+        style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
+
+        # Create table
+        columns = ("Name", "Moisture", "Light", "Temperature")
+        recommendations_table = ttk.Treeview(recommendations_window, columns=columns, show="headings", height=120)
+
+        # Define column headings
+        for col in columns:
+            recommendations_table.heading(col, text=col)
+            recommendations_table.column(col, width=150, anchor="center")
+
+        recommendations_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
+        for name, data in all_plants.items():
+             recommendations_table.insert("", "end", values=(name, data["Moisture"], data["Sunlight"], data["Temperature"]))
+
+def close_recommendations():
+    global recommendations_window
+    if recommendations_window:
+        recommendations_window.destroy()
+        recommendations_window = None
+
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
@@ -134,7 +173,7 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling", 2)
+root.tk.call("tk", "scaling",1.9)
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
@@ -145,6 +184,10 @@ dashboard_button.pack()
 # Inventory Button
 inventory_button = tk.Button(button_frame, text="Inventory", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_inventory)
 inventory_button.pack(pady=10)
+
+# Recommendations
+recommendations_button = tk.Button(button_frame, text="Recommendations", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_recommendations)
+recommendations_button.pack(pady=2.5)
 
 # Add Plant Frame
 frame_add = tk.Frame(root, bg=BG_COLOR)
