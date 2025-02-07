@@ -130,11 +130,11 @@ root.geometry("1000x800")
 root.configure(bg=BG_COLOR)
 
 try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    ctypes.windll.shcore.SetProcessDpiAwareness(2)
 except Exception:
     pass
 
-root.tk.call("tk", "scaling", 2.1)
+root.tk.call("tk", "scaling", 2)
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
