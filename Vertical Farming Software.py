@@ -40,23 +40,23 @@ new_plant_database = {}
 def add_plant():
     name = entry_name.get().strip()
     moisture = entry_moisture.get().strip()
-    sunlight = entry_sunlight.get().strip()
+    light = entry_light.get().strip()
     temperature = entry_temperature.get().strip()
 
-    if not name or not moisture or not sunlight or not temperature:
+    if not name or not moisture or not light or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
 
-    new_plant_database[name] = {"moisture": moisture, "sunlight": sunlight, "temperature": temperature}
+    new_plant_database[name] = {"moisture": moisture, "light": light, "temperature": temperature}
     messagebox.showinfo("Success", f"{name.capitalize()} has been added to the database!")
     entry_name.delete(0, tk.END)
     entry_moisture.delete(0, tk.END)
-    entry_sunlight.delete(0, tk.END)
+    entry_light.delete(0, tk.END)
     entry_temperature.delete(0, tk.END)
 
     # Refresh table if inventory window is open
     if inventory_window and inventory_table:
-        inventory_table.insert("", "end", values=(name, moisture, sunlight, temperature))
+        inventory_table.insert("", "end", values=(name, moisture, light, temperature))
 
 # Inventory functions 
 inventory_window = None
@@ -95,7 +95,7 @@ def open_inventory():
         inventory_window.configure(bg="#FFFFFF")
         inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
 
-        tk.Label(inventory_window, text="Inventory", font=("Ariel Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=20)
+        tk.Label(inventory_window, text="Inventory", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=40)
 
         #Table Styling
         style = ttk.Style()
@@ -103,19 +103,19 @@ def open_inventory():
         style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
 
         # Create table
-        columns = ("Name", "Moisture", "Sunlight", "Temperature")
-        inventory_table = ttk.Treeview(inventory_window, columns=columns, show="headings", height=100)
+        columns = ("Name", "Moisture", "Light", "Temperature")
+        inventory_table = ttk.Treeview(inventory_window, columns=columns, show="headings", height=120)
 
         # Define column headings
         for col in columns:
             inventory_table.heading(col, text=col)
             inventory_table.column(col, width=150, anchor="center")
 
-        inventory_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=110)
+        inventory_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
 
         # Populate table with existing plants
         for name, data in new_plant_database.items():
-            inventory_table.insert("", "end", values=(name, data["moisture"], data["sunlight"], data["temperature"]))
+            inventory_table.insert("", "end", values=(name, data["moisture"], data["light"], data["temperature"]))
 
 def close_inventory():
     global inventory_window
@@ -134,7 +134,7 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling", 1.9)
+root.tk.call("tk", "scaling", 2.1)
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
@@ -148,22 +148,22 @@ inventory_button.pack(pady=10)
 
 # Add Plant Frame
 frame_add = tk.Frame(root, bg=BG_COLOR)
-frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0, 30))
+frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0, 10))
 
-tk.Label(frame_add, text="Add New Plant", font=("Ariel Bold", 62), bg=BG_COLOR, fg=("black")).pack(pady=(30, 45))
-tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 15))
+tk.Label(frame_add, text="Add New Plant", font=("Arial",62), bg=BG_COLOR, fg=("black")).pack(pady=(70))
+tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 20))
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_name.pack(pady=(0, 15))
+entry_name.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Moisture:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+tk.Label(frame_add, text="Moisture (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_moisture = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_moisture.pack(pady=(0, 15))
+entry_moisture.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Sunlight:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
-entry_sunlight = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_sunlight.pack(pady=(0, 15))
+tk.Label(frame_add, text="Light (lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
+entry_light.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Temperature:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+tk.Label(frame_add, text="Temperature (C):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_temperature.pack(pady=(0, 15))
 
