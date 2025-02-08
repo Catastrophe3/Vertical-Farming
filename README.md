@@ -1,1 +1,2 @@
 # Vertical-Farming
+This project is to serve as a competition submission to the 2025 GA TSA Software Developemnt Competiton as the theme was to create a software that improves the enviroment. So, my partner and I developed a software capable of tracking live plant data like Light Intensity, Moisture, and Temperature to analyze data and notify warehouse staff of necessary adjustments in order to maximize plant health and output: maximizing the energy effciency and labor cost of the entire Vertical Farming Operation.
