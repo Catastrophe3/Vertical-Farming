@@ -216,3 +216,5 @@ entry_temperature.pack(pady=(0, 15))
 tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
 
 root.mainloop()
+
+# © DP & TP
