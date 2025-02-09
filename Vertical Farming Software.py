@@ -8,31 +8,31 @@ FG_COLOR = "#2e7d32"
 BUTTON_COLOR = "#2ecc71"
 
 # Database for popular plant recommendations 
-all_plants = {
-    "Lettuce": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "7-24°C"},
-    "Kale": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "4-27°C"},
-    "Spinach": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "2-24°C"},
-    "Basil": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "21-32°C"},
-    "Mint": {"Moisture": "High", "Sunlight": "Partial Shade To Full Sun", "Temperature": "13-24°C"},
-    "Cilantro": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "10-29°C"},
-    "Strawberries": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "16-27°C"},
-    "Tomatoes": {"Moisture": "Moderate To High", "Sunlight": "Full Sun", "Temperature": "18-29°C"},
-    "Peppers": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "18-29°C"},
-    "Cucumbers": {"Moisture": "High", "Sunlight": "Full Sun", "Temperature": "18-35°C"},
-    "Chard": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "10-27°C"},
-    "Arugula": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "4-24°C"},
-    "Mustard Greens": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "7-24°C"},
-    "Pak Choi": {"Moisture": "High", "Sunlight": "Full Sun To Partial Shade", "Temperature": "10-29°C"},
-    "Radishes": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "4-21°C"},
-    "Microgreens": {"Moisture": "High", "Sunlight": "Indirect Light To Partial Shade", "Temperature": "16-24°C"},
-    "Collard Greens": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "4-24°C"},
-    "Rocket": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "4-24°C"},
-    "Mizuna": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "4-24°C"},
-    "Swiss Chard": {"Moisture": "Moderate", "Sunlight": "Full Sun To Partial Shade", "Temperature": "10-27°C"},
-    "Baby Kale": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "4-27°C"},
-    "Oregano": {"Moisture": "Low To Moderate", "Sunlight": "Full Sun", "Temperature": "16-29°C"},
-    "Lemon Balm": {"Moisture": "Moderate", "Sunlight": "Partial Shade To Full Sun", "Temperature": "13-24°C"},
-    "Zinnia Flowers": {"Moisture": "Moderate", "Sunlight": "Full Sun", "Temperature": "21-35°C"}
+pop_plants = {
+    "Lettuce": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "7-24°C"},
+    "Kale": {"Light": "20,000-30,000", "Moisture": "40-60%", "Temperature": "4-27°C"},
+    "Spinach": {"Light": "10,000-20,000", "Moisture": "45-65%", "Temperature": "2-24°C"},
+    "Basil": {"Light": "25,000-50,000", "Moisture": "40-60%", "Temperature": "21-32°C"},
+    "Mint": {"Light": "15,000-25,000", "Moisture": "50-75%", "Temperature": "13-24°C"},
+    "Cilantro": {"Light": "20,000-30,000", "Moisture": "50-70%", "Temperature": "10-29°C"},
+    "Strawberries": {"Light": "25,000-35,000", "Moisture": "50-80%", "Temperature": "16-27°C"},
+    "Tomatoes": {"Light": "30,000-50,000", "Moisture": "50-70%", "Temperature": "18-29°C"},
+    "Peppers": {"Light": "25,000-50,000", "Moisture": "50-70%", "Temperature": "18-29°C"},
+    "Cucumbers": {"Light": "30,000-50,000", "Moisture": "60-80%", "Temperature": "18-35°C"},
+    "Chard": {"Light": "15,000-30,000", "Moisture": "50-70%", "Temperature": "10-27°C"},
+    "Arugula": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
+    "Mustard Greens": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "7-24°C"},
+    "Pak Choi": {"Light": "10,000-25,000", "Moisture": "60-80%", "Temperature": "10-29°C"},
+    "Radishes": {"Light": "20,000-30,000", "Moisture": "50-70%", "Temperature": "4-21°C"},
+    "Microgreens": {"Light": "5,000-15,000", "Moisture": "50-80%", "Temperature": "16-24°C"},
+    "Collard Greens": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
+    "Rocket": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
+    "Mizuna": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
+    "Swiss Chard": {"Light": "15,000-30,000", "Moisture": "50-70%", "Temperature": "10-27°C"},
+    "Baby Kale": {"Light": "20,000-30,000", "Moisture": "40-60%", "Temperature": "4-27°C"},
+    "Oregano": {"Light": "30,000-50,000", "Moisture": "40-60%", "Temperature": "16-29°C"},
+    "Lemon Balm": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "13-24°C"},
+    "Zinnia Flowers": {"Light": "30,000-60,000", "Moisture": "40-60%", "Temperature": "21-35°C"}
 }
 
 new_plant_database = {}
@@ -72,7 +72,7 @@ def open_dashboard():
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
         dashboard_window = tk.Toplevel(root)
         dashboard_window.title("Dashboard")
-        dashboard_window.geometry(root.winfo_screenwith(), root.winfo_screenheight())  # Set window size
+        dashboard_window.geometry("1000x800")
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
 
@@ -93,7 +93,7 @@ def open_inventory():
     if inventory_window is None or not tk.Toplevel.winfo_exists(inventory_window):
         inventory_window = tk.Toplevel(root)
         inventory_window.title("Inventory")
-        inventory_window.geometry(root.winfo_screenwith(), root.winfo_screenheight()) 
+        inventory_window.geometry("1000x800") 
         inventory_window.configure(bg="#FFFFFF")
         inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
 
@@ -132,7 +132,7 @@ def open_recommendations():
 
         recommendations_window = tk.Toplevel(root)
         recommendations_window.title("Plant Recommendations")
-        inventory_window.geometry(root.winfo_screenwith(), root.winfo_screenheight()) 
+        recommendations_window.geometry("1000x800") 
         recommendations_window.configure(bg="#FFFFFF")
         recommendations_window.protocol("WM_DELETE_WINDOW", close_recommendations)
 
@@ -144,7 +144,7 @@ def open_recommendations():
         style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
 
         # Create table
-        columns = ("Name", "Moisture", "Light", "Temperature")
+        columns = ("Name", "Moisture (RH%)", "Light (lux)", "Temperature (C)")
         recommendations_table = ttk.Treeview(recommendations_window, columns=columns, show="headings", height=120)
 
         # Define column headings
@@ -153,8 +153,8 @@ def open_recommendations():
             recommendations_table.column(col, width=150, anchor="center")
 
         recommendations_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
-        for name, data in all_plants.items():
-             recommendations_table.insert("", "end", values=(name, data["Moisture"], data["Sunlight"], data["Temperature"]))
+        for name, data in pop_plants.items():
+             recommendations_table.insert("", "end", values=(name, data["Moisture"], data["Light"], data["Temperature"]))
 
 def close_recommendations():
     global recommendations_window
@@ -205,7 +205,7 @@ tk.Label(frame_add, text="Moisture (RH%):", font=("Arial Bold", 20), bg=BG_COLOR
 entry_moisture = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_moisture.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Light (lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+tk.Label(frame_add, text="Light (Light):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_light.pack(pady=(0, 20))
 
@@ -217,4 +217,4 @@ tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="
 
 root.mainloop()
 
-# © DP & TP
+# © DP & TP 2025
