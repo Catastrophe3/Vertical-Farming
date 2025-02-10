@@ -42,10 +42,17 @@ def add_plant():
     moisture = entry_moisture.get().strip()
     light = entry_light.get().strip()
     temperature = entry_temperature.get().strip()
-
+    #Input Error Handling
     if not name or not moisture or not light or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
+    if moisture.isnumeric() and light.isnumeric() and temperature.isnumeric():
+        pass
+    else:
+        messagebox.showerror("Error", "Moisture, Light, and Temperature must be a number!")
+        return
+    
+    
 
     new_plant_database[name] = {"moisture": moisture, "light": light, "temperature": temperature}
     messagebox.showinfo("Success", f"{name.capitalize()} has been added to the database!")
@@ -105,7 +112,7 @@ def open_inventory():
         style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
 
         # Create table
-        columns = ("Name", "Moisture", "Light", "Temperature")
+        columns = ("Name", "Moisture (RH%)", "Light (lux)", "Temperature (C)")
         inventory_table = ttk.Treeview(inventory_window, columns=columns, show="headings", height=120)
 
         # Loop through table columns
