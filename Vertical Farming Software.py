@@ -38,6 +38,7 @@ pop_plants = {
 new_plant_database = {}
 
 def add_plant():
+    #Prep User Input
     name = entry_name.get().strip()
     moisture = entry_moisture.get().strip()
     light = entry_light.get().strip()
@@ -52,8 +53,7 @@ def add_plant():
         messagebox.showerror("Error", "Moisture, Light, and Temperature must be a number!")
         return
     
-    
-
+    # Add to inventory database
     new_plant_database[name] = {"moisture": moisture, "light": light, "temperature": temperature}
     messagebox.showinfo("Success", f"{name.capitalize()} has been added to the database!")
     entry_name.delete(0, tk.END)
