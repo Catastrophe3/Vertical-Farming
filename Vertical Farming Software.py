@@ -47,7 +47,7 @@ def add_plant():
     if not name or not moisture or not light or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
-    if moisture.isnumeric() and light.isnumeric() and temperature.isnumeric():
+    if moisture.isdigit and light.isdigit and temperature.isdigit:
         pass
     else:
         messagebox.showerror("Error", "Moisture, Light, and Temperature must be a number!")
@@ -55,7 +55,8 @@ def add_plant():
     
     # Add to inventory database
     new_plant_database[name] = {"moisture": moisture, "light": light, "temperature": temperature}
-    messagebox.showinfo("Success", f"{name.capitalize()} has been added to the database!")
+    messagebox.showinfo("Success!", f"{name.capitalize()} has been added to the database!")
+    # Clear input boxes
     entry_name.delete(0, tk.END)
     entry_moisture.delete(0, tk.END)
     entry_light.delete(0, tk.END)
