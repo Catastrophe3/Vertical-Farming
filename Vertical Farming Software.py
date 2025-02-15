@@ -187,12 +187,12 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling",1.9)
+root.tk.call("tk", "scaling",2.0)
 
 root.update_idletasks()  # Force update to get correct screen size
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-root.geometry(f"{screen_width}x{screen_height}+0+0")
+root.geometry(f"{screen_width}x{screen_height}")
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
