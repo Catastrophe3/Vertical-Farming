@@ -80,7 +80,7 @@ def open_dashboard():
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
         dashboard_window = tk.Toplevel(root)
         dashboard_window.title("Dashboard")
-        dashboard_window.geometry("1200x800")
+        dashboard_window.geometry(f"{screen_width}x{screen_height}+0+0")
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
 
@@ -101,7 +101,7 @@ def open_inventory():
     if inventory_window is None or not tk.Toplevel.winfo_exists(inventory_window):
         inventory_window = tk.Toplevel(root)
         inventory_window.title("Inventory")
-        inventory_window.geometry("1200x800") 
+        inventory_window.geometry(f"{screen_width}x{screen_height}+0+0")
         inventory_window.configure(bg="#FFFFFF")
         inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
 
@@ -140,7 +140,7 @@ def open_recommendations():
 
         recommendations_window = tk.Toplevel(root)
         recommendations_window.title("Plant Recommendations")
-        recommendations_window.geometry("1200x800") 
+        recommendations_window.geometry(f"{screen_width}x{screen_height}+0+0")
         recommendations_window.configure(bg="#FFFFFF")
         recommendations_window.protocol("WM_DELETE_WINDOW", close_recommendations)
 
