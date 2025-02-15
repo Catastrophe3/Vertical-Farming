@@ -173,6 +173,7 @@ def close_recommendations():
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
+root.state('zoomed')
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
