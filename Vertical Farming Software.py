@@ -170,9 +170,10 @@ def close_recommendations():
         recommendations_window.destroy()
         recommendations_window = None
 
-# Initialize GUI
+# Initialize GUI size and style
 root = tk.Tk()
 root.title("Vertical Farming Software")
+root.resizable(True, True)
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
@@ -187,7 +188,7 @@ except Exception:
 
 root.tk.call("tk", "scaling",2.0)
 
-root.update_idletasks()  # Force update to get correct screen size
+root.update_idletasks()  
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}")
