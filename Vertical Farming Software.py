@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import ctypes
 from tkinter import ttk
+import serial
 
 BG_COLOR = "#bdd9bf"
 FG_COLOR = "#2e7d32"
@@ -186,12 +187,13 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling",2.0)
+root.tk.call("tk", "scaling",1.9)
 
 root.update_idletasks()  
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}")
+print (screen_width, screen_height)
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
@@ -231,7 +233,34 @@ entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_temperature.pack(pady=(0, 15))
 
 tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
+# Arduino Data
+def readserial(comport, baudrate):
 
+    ser = serial.Serial(comport, baudrate, timeout=0.1)         # 1/timeout is the frequency at which the port is read
+    sensordata = {}
+    while True:
+        # Bring data from sensors into dict
+        data = str(ser.readline().decode().strip())
+        if data:
+            if len(sensordata) < 3:
+                if data[0] == "L":
+                    LLevel = int(str(data)[1:len(data)])
+                    sensordata['Light'] = LLevel
+                if data[0] == "T":
+                    TLevel = int(round(float(str(data)[1:len(data)])))
+                    sensordata['Temp'] = TLevel
+                if data[0] == "H":
+                    HLevel = int(round(float(str(data)[1:len(data)])))
+                    sensordata['Humidity'] = HLevel
+            elif len(sensordata) == 3:
+                print(sensordata)
+                return sensordata
+
+
+
+if __name__ == '__main__':
+
+    readserial('COM3', 9600)
 root.mainloop()
 
 # © DP & TP 2025
