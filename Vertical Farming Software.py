@@ -9,30 +9,30 @@ BUTTON_COLOR = "#2ecc71"
 
 # Database for popular plant recommendations 
 pop_plants = {
-    "Lettuce": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "7-24°C"},
-    "Kale": {"Light": "20,000-30,000", "Moisture": "40-60%", "Temperature": "4-27°C"},
-    "Spinach": {"Light": "10,000-20,000", "Moisture": "45-65%", "Temperature": "2-24°C"},
-    "Basil": {"Light": "25,000-50,000", "Moisture": "40-60%", "Temperature": "21-32°C"},
-    "Mint": {"Light": "15,000-25,000", "Moisture": "50-75%", "Temperature": "13-24°C"},
-    "Cilantro": {"Light": "20,000-30,000", "Moisture": "50-70%", "Temperature": "10-29°C"},
-    "Strawberries": {"Light": "25,000-35,000", "Moisture": "50-80%", "Temperature": "16-27°C"},
-    "Tomatoes": {"Light": "30,000-50,000", "Moisture": "50-70%", "Temperature": "18-29°C"},
-    "Peppers": {"Light": "25,000-50,000", "Moisture": "50-70%", "Temperature": "18-29°C"},
-    "Cucumbers": {"Light": "30,000-50,000", "Moisture": "60-80%", "Temperature": "18-35°C"},
-    "Chard": {"Light": "15,000-30,000", "Moisture": "50-70%", "Temperature": "10-27°C"},
-    "Arugula": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
-    "Mustard Greens": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "7-24°C"},
-    "Pak Choi": {"Light": "10,000-25,000", "Moisture": "60-80%", "Temperature": "10-29°C"},
-    "Radishes": {"Light": "20,000-30,000", "Moisture": "50-70%", "Temperature": "4-21°C"},
-    "Microgreens": {"Light": "5,000-15,000", "Moisture": "50-80%", "Temperature": "16-24°C"},
-    "Collard Greens": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
-    "Rocket": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
-    "Mizuna": {"Light": "10,000-20,000", "Moisture": "50-70%", "Temperature": "4-24°C"},
-    "Swiss Chard": {"Light": "15,000-30,000", "Moisture": "50-70%", "Temperature": "10-27°C"},
-    "Baby Kale": {"Light": "20,000-30,000", "Moisture": "40-60%", "Temperature": "4-27°C"},
-    "Oregano": {"Light": "30,000-50,000", "Moisture": "40-60%", "Temperature": "16-29°C"},
-    "Lemon Balm": {"Light": "15,000-25,000", "Moisture": "50-70%", "Temperature": "13-24°C"},
-    "Zinnia Flowers": {"Light": "30,000-60,000", "Moisture": "40-60%", "Temperature": "21-35°C"}
+    "Lettuce": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "7-24°C"},
+    "Kale": {"Light": "20,000-30,000", "Humidity": "40-60%", "Temperature": "4-27°C"},
+    "Spinach": {"Light": "10,000-20,000", "Humidity": "45-65%", "Temperature": "2-24°C"},
+    "Basil": {"Light": "25,000-50,000", "Humidity": "40-60%", "Temperature": "21-32°C"},
+    "Mint": {"Light": "15,000-25,000", "Humidity": "50-75%", "Temperature": "13-24°C"},
+    "Cilantro": {"Light": "20,000-30,000", "Humidity": "50-70%", "Temperature": "10-29°C"},
+    "Strawberries": {"Light": "25,000-35,000", "Humidity": "50-80%", "Temperature": "16-27°C"},
+    "Tomatoes": {"Light": "30,000-50,000", "Humidity": "50-70%", "Temperature": "18-29°C"},
+    "Peppers": {"Light": "25,000-50,000", "Humidity": "50-70%", "Temperature": "18-29°C"},
+    "Cucumbers": {"Light": "30,000-50,000", "Humidity": "60-80%", "Temperature": "18-35°C"},
+    "Chard": {"Light": "15,000-30,000", "Humidity": "50-70%", "Temperature": "10-27°C"},
+    "Arugula": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
+    "Mustard Greens": {"Light": "15,000-25,000", "Humidity": "50-70%", "Temperature": "7-24°C"},
+    "Pak Choi": {"Light": "10,000-25,000", "Humidity": "60-80%", "Temperature": "10-29°C"},
+    "Radishes": {"Light": "20,000-30,000", "Humidity": "50-70%", "Temperature": "4-21°C"},
+    "Microgreens": {"Light": "5,000-15,000", "Humidity": "50-80%", "Temperature": "16-24°C"},
+    "Collard Greens": {"Light": "15,000-25,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
+    "Rocket": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
+    "Mizuna": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
+    "Swiss Chard": {"Light": "15,000-30,000", "Humidity": "50-70%", "Temperature": "10-27°C"},
+    "Baby Kale": {"Light": "20,000-30,000", "Humidity": "40-60%", "Temperature": "4-27°C"},
+    "Oregano": {"Light": "30,000-50,000", "Humidity": "40-60%", "Temperature": "16-29°C"},
+    "Lemon Balm": {"Light": "15,000-25,000", "Humidity": "50-70%", "Temperature": "13-24°C"},
+    "Zinnia Flowers": {"Light": "30,000-60,000", "Humidity": "40-60%", "Temperature": "21-35°C"}
 }
 
 new_plant_database = {}
@@ -40,31 +40,31 @@ new_plant_database = {}
 def add_plant():
     #Prep User Input
     name = entry_name.get().strip()
-    moisture = entry_moisture.get().strip()
+    humidity = entry_humidity.get().strip()
     light = entry_light.get().strip()
     temperature = entry_temperature.get().strip()
     #Input Error Handling
-    if not name or not moisture or not light or not temperature:
+    if not name or not humidity or not light or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
-    if moisture.isdigit and light.isdigit and temperature.isdigit:
+    if humidity.isdigit and light.isdigit and temperature.isdigit:
         pass
     else:
-        messagebox.showerror("Error", "Moisture, Light, and Temperature must be a number!")
+        messagebox.showerror("Error", "humidity, Light, and Temperature must be a number!")
         return
     
     # Add to inventory database
-    new_plant_database[name] = {"moisture": moisture, "light": light, "temperature": temperature}
+    new_plant_database[name] = {"Humidity": humidity, "Light": light, "Temperature": temperature}
     messagebox.showinfo("Success!", f"{name.capitalize()} has been added to the database!")
     # Clear input boxes
     entry_name.delete(0, tk.END)
-    entry_moisture.delete(0, tk.END)
+    entry_humidity.delete(0, tk.END)
     entry_light.delete(0, tk.END)
     entry_temperature.delete(0, tk.END)
 
     # Refresh table if inventory window is open
     if inventory_window and inventory_table:
-        inventory_table.insert("", "end", values=(name, moisture, light, temperature))
+        inventory_table.insert("", "end", values=(name, humidity, light, temperature))
 
 # Inventory functions 
 inventory_window = None
@@ -113,7 +113,7 @@ def open_inventory():
         style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
 
         # Create table
-        columns = ("Name", "Moisture (RH%)", "Light (lux)", "Temperature (C)")
+        columns = ("Name", "Humidity (RH%)", "Light (lux)", "Temperature (C)")
         inventory_table = ttk.Treeview(inventory_window, columns=columns, show="headings", height=120)
 
         # Loop through table columns
@@ -125,7 +125,7 @@ def open_inventory():
 
         # Populate table with existing plants in database
         for name, data in new_plant_database.items():
-            inventory_table.insert("", "end", values=(name, data["moisture"], data["light"], data["temperature"]))
+            inventory_table.insert("", "end", values=(name, data["Humidity"], data["Light"], data["Temperature"]))
 
 def close_inventory():
     global inventory_window
@@ -152,7 +152,7 @@ def open_recommendations():
         style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
 
         # Create table
-        columns = ("Name", "Moisture (RH%)", "Light (lux)", "Temperature (C)")
+        columns = ("Name", "Humidity (RH%)", "Light (lux)", "Temperature (C)")
         recommendations_table = ttk.Treeview(recommendations_window, columns=columns, show="headings", height=120)
 
         # Define column headings
@@ -162,7 +162,7 @@ def open_recommendations():
 
         recommendations_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
         for name, data in pop_plants.items():
-             recommendations_table.insert("", "end", values=(name, data["Moisture"], data["Light"], data["Temperature"]))
+             recommendations_table.insert("", "end", values=(name, data["Humidity"], data["Light"], data["Temperature"]))
 
 def close_recommendations():
     global recommendations_window
@@ -189,6 +189,11 @@ except Exception:
 
 root.tk.call("tk", "scaling",1.9)
 
+root.update_idletasks()  # Force update to get correct screen size
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.geometry(f"{screen_width}x{screen_height}+0+0")
+
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)
@@ -214,9 +219,9 @@ tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_CO
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_name.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Moisture (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
-entry_moisture = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_moisture.pack(pady=(0, 20))
+tk.Label(frame_add, text="Humidity (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+entry_humidity = tk.Entry(frame_add, font=("Arial", 20), width=40)
+entry_humidity.pack(pady=(0, 20))
 
 tk.Label(frame_add, text="Light (Lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
