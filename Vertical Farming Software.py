@@ -176,7 +176,7 @@ root.title("Vertical Farming Software")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
-root.geometry(f"{screen_width}x{screen_height}+0+0")
+root.geometry("1200x800")
 root.configure(bg=BG_COLOR)
 
 try:
@@ -201,10 +201,9 @@ recommendations_button = tk.Button(button_frame, text="Recommendations", font=("
 recommendations_button.pack(pady=2.5)
 
 
-
 # Add Plant Frame
 frame_add = tk.Frame(root, bg=BG_COLOR)
-frame_add.pack(fill=tk.BOTH, expand=True, padx=30, pady=(0, 10))
+frame_add.pack(fill=tk.NONE, expand=True, padx=30, pady=(0, 10))
 
 # Input boxes for plant necessities
 tk.Label(frame_add, text="Add New Plant", font=("Arial",62), bg=BG_COLOR, fg=("black")).pack(pady=(70))
