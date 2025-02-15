@@ -234,4 +234,4 @@ tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="
 
 root.mainloop()
 
-# © DP & TP 2025
+# ©DP & TP 2025
