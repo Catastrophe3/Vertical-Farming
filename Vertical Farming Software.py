@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import messagebox
 import ctypes
 from tkinter import ttk
-import serial
 
 BG_COLOR = "#bdd9bf"
 FG_COLOR = "#2e7d32"
@@ -171,10 +170,9 @@ def close_recommendations():
         recommendations_window.destroy()
         recommendations_window = None
 
-# Initialize GUI size and style
+# Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
-root.resizable(True, True)
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
@@ -187,14 +185,13 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling",1.9)
+root.tk.call("tk", "scaling",2.0)
 
-root.update_idletasks()  
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-root.geometry(f"{screen_width}x{screen_height}")
-print (screen_width, screen_height)
+root.update_idletasks()  # Force update to get correct screen size
 
+width, height = root.winfo_screenwidth(), root.winfo_screenheight()
+
+root.geometry('%dx%d+0+0' % (width,height))
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)
@@ -215,7 +212,7 @@ frame_add = tk.Frame(root, bg=BG_COLOR)
 frame_add.pack(fill=tk.NONE, expand=True, padx=30, pady=(0, 10))
 
 # Input boxes for plant necessities
-tk.Label(frame_add, text="Add New Plant", font=("Arial",62), bg=BG_COLOR, fg=("black")).pack(pady=(70))
+tk.Label(frame_add, text="Add New Plant", font=("Arial",45), bg=BG_COLOR, fg=("black")).pack(pady=(70))
 tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 20))
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_name.pack(pady=(0, 20))
@@ -233,34 +230,7 @@ entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_temperature.pack(pady=(0, 15))
 
 tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
-# Arduino Data
-def readserial(comport, baudrate):
 
-    ser = serial.Serial(comport, baudrate, timeout=0.1)         # 1/timeout is the frequency at which the port is read
-    sensordata = {}
-    while True:
-        # Bring data from sensors into dict
-        data = str(ser.readline().decode().strip())
-        if data:
-            if len(sensordata) < 3:
-                if data[0] == "L":
-                    LLevel = int(str(data)[1:len(data)])
-                    sensordata['Light'] = LLevel
-                if data[0] == "T":
-                    TLevel = int(round(float(str(data)[1:len(data)])))
-                    sensordata['Temp'] = TLevel
-                if data[0] == "H":
-                    HLevel = int(round(float(str(data)[1:len(data)])))
-                    sensordata['Humidity'] = HLevel
-            elif len(sensordata) == 3:
-                print(sensordata)
-                return sensordata
-
-
-
-if __name__ == '__main__':
-
-    readserial('COM3', 9600)
 root.mainloop()
 
 # © DP & TP 2025
