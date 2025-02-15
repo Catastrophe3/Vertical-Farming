@@ -80,7 +80,7 @@ def open_dashboard():
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
         dashboard_window = tk.Toplevel(root)
         dashboard_window.title("Dashboard")
-        dashboard_window.geometry("1000x800")
+        dashboard_window.geometry("1200x800")
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
 
@@ -101,7 +101,7 @@ def open_inventory():
     if inventory_window is None or not tk.Toplevel.winfo_exists(inventory_window):
         inventory_window = tk.Toplevel(root)
         inventory_window.title("Inventory")
-        inventory_window.geometry("1000x800") 
+        inventory_window.geometry("1200x800") 
         inventory_window.configure(bg="#FFFFFF")
         inventory_window.protocol("WM_DELETE_WINDOW", close_inventory)
 
@@ -136,11 +136,11 @@ def close_inventory():
 def open_recommendations():
     global recommendations_window, recommendations_text
     recommendations_window = None  
-    if recommendations_window is None or not recommendations_window.winfo_exists():
+    if recommendations_window is None:
 
         recommendations_window = tk.Toplevel(root)
         recommendations_window.title("Plant Recommendations")
-        recommendations_window.geometry("1000x800") 
+        recommendations_window.geometry("1200x800") 
         recommendations_window.configure(bg="#FFFFFF")
         recommendations_window.protocol("WM_DELETE_WINDOW", close_recommendations)
 
@@ -176,7 +176,10 @@ root.title("Vertical Farming Software")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
-root.geometry("1200x800")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
 
 try:
@@ -215,7 +218,7 @@ tk.Label(frame_add, text="Moisture (RH%):", font=("Arial Bold", 20), bg=BG_COLOR
 entry_moisture = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_moisture.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Light (Light):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+tk.Label(frame_add, text="Light (Lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_light.pack(pady=(0, 20))
 
