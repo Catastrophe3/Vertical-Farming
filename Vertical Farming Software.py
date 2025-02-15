@@ -173,7 +173,10 @@ def close_recommendations():
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
-root.geometry("1000x800")
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
 
 try:
