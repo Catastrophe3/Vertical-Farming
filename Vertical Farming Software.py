@@ -176,14 +176,6 @@ root.title("Vertical Farming Software")
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
-# Set a maximum window size to avoid being too large on some laptops
-max_width = 1920
-max_height = 1080
-
-if screen_width > max_width:
-    screen_width = max_width
-if screen_height > max_height:
-    screen_height = max_height
 
 root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
@@ -193,7 +185,7 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling", 2.0)
+root.tk.call("tk", "scaling",2.0)
 
 root.update_idletasks()  # Force update to get correct screen size
 screen_width = root.winfo_screenwidth()
