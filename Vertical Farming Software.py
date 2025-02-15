@@ -173,26 +173,28 @@ def close_recommendations():
 # Initialize GUI
 root = tk.Tk()
 root.title("Vertical Farming Software")
-root.state('zoomed')
+root.state('normal')
+# root.attributes('-fullscreen', True)
+root.update()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
 
-root.geometry(f"{screen_width}x{screen_height}+0+0")
+# root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
 
-try:
-    ctypes.windll.shcore.SetProcessDpiAwareness(2)
-except Exception:
-    pass
+# try:
+#     ctypes.windll.shcore.SetProcessDpiAwareness(2)
+# except Exception:
+#     pass
 
-root.tk.call("tk", "scaling",2.0)
+# root.tk.call("tk", "scaling",2.0)
 
-root.update_idletasks()  # Force update to get correct screen size
+# root.update_idletasks()  # Force update to get correct screen size
 
-width, height = root.winfo_screenwidth(), root.winfo_screenheight()
+# width, height = root.winfo_screenwidth(), root.winfo_screenheight()
 
-root.geometry('%dx%d+0+0' % (width,height))
+# root.geometry('%dx%d+0+0' % (width,height))
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)
@@ -234,4 +236,4 @@ tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="
 
 root.mainloop()
 
-# ©DP & TP 2025
+#© DP & TP 2025
