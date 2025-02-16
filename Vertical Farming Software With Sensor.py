@@ -8,6 +8,7 @@ BG_COLOR = "#bdd9bf"
 FG_COLOR = "#2e7d32"
 BUTTON_COLOR = "#2ecc71"
 
+            
 # Database for popular plant recommendations 
 pop_plants = {
     "Lettuce": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "7-24°C"},
@@ -74,10 +75,31 @@ inventory_table = None
 # Dashboard functions 
 dashboard_window = None
 
+# Arduino Data
+def readserial(comport, baudrate):
 
+    ser = serial.Serial(comport, baudrate, timeout=0.1) # 1/timeout is the frequency at which the port is read
+    sensordata = {}
+    while True:
+        # Bring data from sensors into dict
+        data = str(ser.readline().decode().strip())
+        if data:
+            if len(sensordata) < 3:
+                if data[0] == "L":
+                    LLevel = int(str(data)[1:len(data)])
+                    sensordata['Light'] = LLevel
+                if data[0] == "T":
+                    TLevel = int(round(float(str(data)[1:len(data)])))
+                    sensordata['Temp'] = TLevel
+                if data[0] == "H":
+                    HLevel = int(round(float(str(data)[1:len(data)])))
+                    sensordata['Humidity'] = HLevel
+            elif len(sensordata) == 3:
+                return sensordata
 
 def open_dashboard():
     global dashboard_window
+
     if dashboard_window is None or not tk.Toplevel.winfo_exists(dashboard_window):
         dashboard_window = tk.Toplevel(root)
         dashboard_window.title("Dashboard")
@@ -85,11 +107,34 @@ def open_dashboard():
         dashboard_window.configure(bg="#FFFFFF")
         dashboard_window.protocol("WM_DELETE_WINDOW", close_dashboard)
 
-        tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=30)
+        
 
         #placeholder for the dashboard
-        tk.Label(dashboard_window, text="Welcome to the Dashboard!", font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
-        tk.Label(dashboard_window, text="This area will display analytics or information as needed.", font=("Arial", 14), bg="#FFFFFF", fg="#000000").pack(pady=10)
+    tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=40)
+
+    #Table Style
+    style = ttk.Style()
+    style.configure("Treeview", font=("Arial", 12) , rowheight=80, padx=30, pady=120) #Font of table data
+    style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
+
+    # Create table
+    columns = ("Name", "Humidity (RH%)", "Light (lux)", "Temperature (C)")
+    dashboard_table = ttk.Treeview(dashboard_window, columns=columns, show="headings", height=120)
+    plantgenerated = False
+    # Loop through table columns
+    for col in columns:
+        dashboard_table.heading(col, text=col)
+        dashboard_table.column(col, width=150, anchor="center")
+        raw_data = readserial('COM3', 9600)
+        if plantgenerated:
+            break
+        else:
+            dashboard_table.insert("", "end", values=("Plant", raw_data['Humidity'], raw_data['Light'], raw_data['Temp']))
+            plantgenerated = True
+    dashboard_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
+    
+    
+    
 
 def close_dashboard():
     global dashboard_window
@@ -233,28 +278,7 @@ entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_temperature.pack(pady=(0, 15))
 
 tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
-# Arduino Data
-def readserial(comport, baudrate):
 
-    ser = serial.Serial(comport, baudrate, timeout=0.1)         # 1/timeout is the frequency at which the port is read
-    sensordata = {}
-    while True:
-        # Bring data from sensors into dict
-        data = str(ser.readline().decode().strip())
-        if data:
-            if len(sensordata) < 3:
-                if data[0] == "L":
-                    LLevel = int(str(data)[1:len(data)])
-                    sensordata['Light'] = LLevel
-                if data[0] == "T":
-                    TLevel = int(round(float(str(data)[1:len(data)])))
-                    sensordata['Temp'] = TLevel
-                if data[0] == "H":
-                    HLevel = int(round(float(str(data)[1:len(data)])))
-                    sensordata['Humidity'] = HLevel
-            elif len(sensordata) == 3:
-                print(sensordata)
-                return sensordata
 
 
 
