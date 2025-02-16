@@ -174,7 +174,7 @@ def close_recommendations():
 root = tk.Tk()
 root.title("Vertical Farming Software")
 root.state('normal')
-# root.attributes('-fullscreen', True)
+
 root.update()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -183,18 +183,19 @@ screen_height = root.winfo_screenheight()
 # root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
 
-# try:
-#     ctypes.windll.shcore.SetProcessDpiAwareness(2)
-# except Exception:
-#     pass
+try:
+    ctypes.windll.shcore.SetProcessDpiAwareness(2)
+except Exception:
+    pass
 
-# root.tk.call("tk", "scaling",2.0)
+root.tk.call("tk", "scaling",2.0)
+root.state('zoomed')
 
-# root.update_idletasks()  # Force update to get correct screen size
+root.update_idletasks()  
 
-# width, height = root.winfo_screenwidth(), root.winfo_screenheight()
+width, height = root.winfo_screenwidth(), root.winfo_screenheight()
 
-# root.geometry('%dx%d+0+0' % (width,height))
+
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
 button_frame.pack(anchor=tk.NW, padx=30, pady=30)
@@ -215,8 +216,9 @@ frame_add = tk.Frame(root, bg=BG_COLOR)
 frame_add.pack(fill=tk.NONE, expand=True, padx=30, pady=(0, 10))
 
 # Input boxes for plant necessities
-tk.Label(frame_add, text="Add New Plant", font=("Arial",45), bg=BG_COLOR, fg=("black")).pack(pady=(70))
-tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 20))
+tk.Label(frame_add, text="Add New Plant", font=("Arial",45), bg=BG_COLOR, fg=("black")).pack(pady=(45))
+
+tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(25, 10))
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_name.pack(pady=(0, 20))
 
