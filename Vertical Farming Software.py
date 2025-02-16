@@ -26,7 +26,7 @@ pop_plants = {
     "Radishes": {"Light": "20,000-30,000", "Humidity": "50-70%", "Temperature": "4-21°C"},
     "Microgreens": {"Light": "5,000-15,000", "Humidity": "50-80%", "Temperature": "16-24°C"},
     "Collard Greens": {"Light": "15,000-25,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
-    "Rocket": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
+    "Arugula": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
     "Mizuna": {"Light": "10,000-20,000", "Humidity": "50-70%", "Temperature": "4-24°C"},
     "Swiss Chard": {"Light": "15,000-30,000", "Humidity": "50-70%", "Temperature": "10-27°C"},
     "Baby Kale": {"Light": "20,000-30,000", "Humidity": "40-60%", "Temperature": "4-27°C"},
