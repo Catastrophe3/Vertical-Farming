@@ -182,7 +182,6 @@ screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
 
-# root.geometry(f"{screen_width}x{screen_height}+0+0")
 root.configure(bg=BG_COLOR)
 
 try:
@@ -190,7 +189,7 @@ try:
 except Exception:
     pass
 
-root.tk.call("tk", "scaling",2.0)
+root.tk.call("tk", "scaling",2.2)
 root.state('zoomed')
 
 root.update_idletasks()  
@@ -214,12 +213,16 @@ recommendations_button.pack(pady=2.5)
 
 
 # Create scrollable canvas
-canvas = tk.Canvas(root, bg=BG_COLOR)
-canvas.pack(anchor="center", fill=tk.BOTH, expand=True)
+# Scrollable Main Frame
+main_frame = tk.Frame(root, bg=BG_COLOR)
+main_frame.pack(fill=tk.BOTH, expand=True)
 
-# Add scrollbar
-scrollbar = ttk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
-scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 20), pady=(0, 20))
+canvas = tk.Canvas(main_frame, bg=BG_COLOR)
+scrollbar = tk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+canvas.configure(yscrollcommand=scrollbar.set)
 
 
 # Configure canvas
