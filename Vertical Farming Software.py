@@ -44,15 +44,17 @@ def add_plant():
     light = entry_light.get().strip()
     temperature = entry_temperature.get().strip()
     #Input Error Handling
+
+    # Ensure all fields are filled
     if not name or not humidity or not light or not temperature:
         messagebox.showerror("Error", "All fields must be filled!")
         return
-    if humidity.isdigit and light.isdigit and temperature.isdigit:
-        pass
-    else:
-        messagebox.showerror("Error", "humidity, Light, and Temperature must be a number!")
+    # Ensure sensor fields are integers
+    if not all(any(char.isdigit() for char in value) for value in [humidity, light, temperature]):
+        messagebox.showerror("Error", "Humidity, Light, and Temperature must contain at least one number!")
         return
-    
+
+ 
     # Add to inventory database
     new_plant_database[name] = {"Humidity": humidity, "Light": light, "Temperature": temperature}
     messagebox.showinfo("Success!", f"{name.capitalize()} has been added to the database!")
@@ -211,31 +213,88 @@ recommendations_button = tk.Button(button_frame, text="Recommendations", font=("
 recommendations_button.pack(pady=2.5)
 
 
-# Add Plant Frame
-frame_add = tk.Frame(root, bg=BG_COLOR)
-frame_add.pack(fill=tk.NONE, expand=True, padx=30, pady=(0, 10))
+# Create scrollable canvas
+canvas = tk.Canvas(root, bg=BG_COLOR)
+canvas.pack(anchor="center", fill=tk.BOTH, expand=True)
+
+# Add scrollbar
+scrollbar = ttk.Scrollbar(root, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y, padx=(0, 20), pady=(0, 20))
+
+
+# Configure canvas
+canvas.configure(yscrollcommand=scrollbar.set)
+canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+# Bind mouse wheel scrolling
+def _on_mousewheel(event):
+    canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+    
+canvas.bind_all("<MouseWheel>", _on_mousewheel)
+canvas.bind_all("<Button-4>", lambda e: canvas.yview_scroll(-1, "units"))
+canvas.bind_all("<Button-5>", lambda e: canvas.yview_scroll(1, "units"))
+
+
+# Create centered container frame
+center_frame = tk.Frame(canvas, bg=BG_COLOR)
+# Function to center the frame
+def center_frame_position():
+    canvas.update_idletasks()
+    x = (canvas.winfo_width() - center_frame.winfo_reqwidth()) / 2
+    y = (canvas.winfo_height() - center_frame.winfo_reqheight()) / 2
+    canvas.coords(center_frame_id, x, y)
+
+# Create centered container frame
+center_frame = tk.Frame(canvas, bg=BG_COLOR)
+center_frame_id = canvas.create_window(0, 0, window=center_frame, anchor="nw")
+
+# Bind resize event to center the frame
+canvas.bind("<Configure>", lambda e: center_frame_position())
+
+
+# Create content frame inside centered container
+frame_add = tk.Frame(center_frame, bg=BG_COLOR)
+frame_add.pack()
+
 
 # Input boxes for plant necessities
-tk.Label(frame_add, text="Add New Plant", font=("Arial",45), bg=BG_COLOR, fg=("black")).pack(pady=(45))
+tk.Label(frame_add, text="Add New Plant", font=("Arial",45), bg=BG_COLOR, fg=("black")).pack(pady=(45), anchor="center")
 
-tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(25, 10))
+
+tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(25, 10), anchor="center")
+
+
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_name.pack(pady=(0, 20))
+entry_name.pack(pady=(0, 20), anchor="center")
 
-tk.Label(frame_add, text="Humidity (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+
+tk.Label(frame_add, text="Humidity (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15), anchor="center")
+
 entry_humidity = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_humidity.pack(pady=(0, 20))
+entry_humidity.pack(pady=(0, 20), anchor="center")
 
-tk.Label(frame_add, text="Light (Lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
+tk.Label(frame_add, text="Light (Lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15), anchor="center")
+
 entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_light.pack(pady=(0, 20))
 
-tk.Label(frame_add, text="Temperature (C):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
-entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
-entry_temperature.pack(pady=(0, 15))
+tk.Label(frame_add, text="Temperature (C):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15), anchor="center")
 
-tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
+entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
+entry_temperature.pack(pady=(0, 15), anchor="center")
+
+
+tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50), anchor="center")
+
+
+# Update scroll region when window is resized
+def on_frame_configure(event):
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    center_frame_position()
+
+frame_add.bind("<Configure>", on_frame_configure)
 
 root.mainloop()
 
-#© DP & TP 2025
+
+# © DP & TP 2025
