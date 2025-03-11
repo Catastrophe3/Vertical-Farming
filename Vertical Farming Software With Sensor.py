@@ -3,6 +3,7 @@ from tkinter import messagebox
 import ctypes
 from tkinter import ttk
 import serial
+import math
 
 BG_COLOR = "#bdd9bf"
 FG_COLOR = "#2e7d32"
@@ -87,9 +88,26 @@ def open_dashboard():
 
         tk.Label(dashboard_window, text="Dashboard", font=("Arial Bold", 38), bg="#ece9e8", fg="#000000").pack(pady=30)
 
-        #placeholder for the dashboard
-        tk.Label(dashboard_window, text="Welcome to the Dashboard!", font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
-        tk.Label(dashboard_window, text="This area will display analytics or information as needed.", font=("Arial", 14), bg="#FFFFFF", fg="#000000").pack(pady=10)
+        #Table Style
+        style = ttk.Style()
+        style.configure("Treeview", font=("Arial", 12) , rowheight=80, padx=30, pady=120) #Font of table data
+        style.configure("Treeview.Heading", font=("Arial Bold", 18), padx=60, pady=60)  # Font for headers
+
+        # Create table
+        columns = ("Name", "Humidity (RH%)", "Light (lux)", "Temperature (C)")
+        dashboard_table = ttk.Treeview(dashboard_window, columns=columns, show="headings", height=120)
+
+        # Loop through table columns
+        for col in columns:
+            dashboard_table.heading(col, text=col)
+            dashboard_table.column(col, width=150, anchor="center")
+
+        dashboard_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
+
+        # Populate table with existing plants in database
+        dashboard_table.insert("", "end", values=("Plant", readserial("COM3", 9600)["Humidity"], readserial("COM3", 9600)["Light"], readserial("COM3", 9600)["Temp"]))
+
+        
 
 def close_dashboard():
     global dashboard_window
@@ -171,6 +189,8 @@ def close_recommendations():
         recommendations_window.destroy()
         recommendations_window = None
 
+
+
 # Initialize GUI size and style
 root = tk.Tk()
 root.title("Vertical Farming Software")
@@ -193,7 +213,6 @@ root.update_idletasks()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 root.geometry(f"{screen_width}x{screen_height}")
-print (screen_width, screen_height)
 
 # Dashboard Button
 button_frame = tk.Frame(root, bg=BG_COLOR)
@@ -209,9 +228,57 @@ inventory_button.pack(pady=10)
 recommendations_button = tk.Button(button_frame, text="Recommendations", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_recommendations)
 recommendations_button.pack(pady=2.5)
 
+# Create content frame inside centered container
+
+
+# Create scrollable canvas
+# Scrollable Main Frame
+main_frame = tk.Frame(root, bg=BG_COLOR)
+main_frame.pack(fill=tk.BOTH, expand=True)
+
+
+canvas = tk.Canvas(main_frame, bg=BG_COLOR)
+scrollbar = tk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
+scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+canvas.configure(yscrollcommand=scrollbar.set)
+
+
+# Configure canvas
+canvas.configure(yscrollcommand=scrollbar.set)
+canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
+
+# Bind mouse wheel scrolling
+def _on_mousewheel(event):
+    canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+    
+canvas.bind_all("<MouseWheel>", _on_mousewheel)
+canvas.bind_all("<Button-4>", lambda e: canvas.yview_scroll(-1, "units"))
+canvas.bind_all("<Button-5>", lambda e: canvas.yview_scroll(1, "units"))
+
+
+# Create centered container frame
+center_frame = tk.Frame(canvas, bg=BG_COLOR)
+# Function to center the frame
+def center_frame_position():
+    canvas.update_idletasks()
+    x = (canvas.winfo_width() - center_frame.winfo_reqwidth()) / 2
+    y = (canvas.winfo_height() - center_frame.winfo_reqheight()) / 2
+    canvas.coords(center_frame_id, x, y)
+
+# Create centered container frame
+center_frame = tk.Frame(canvas, bg=BG_COLOR)
+center_frame_id = canvas.create_window(0, 0, window=center_frame, anchor="nw")
+
+# Bind resize event to center the frame
+canvas.bind("<Configure>", lambda e: center_frame_position())
+
+
+
 
 # Add Plant Frame
-frame_add = tk.Frame(root, bg=BG_COLOR)
+frame_add = tk.Frame(center_frame, bg=BG_COLOR)
 frame_add.pack(fill=tk.NONE, expand=True, padx=30, pady=(0, 10))
 
 # Input boxes for plant necessities
@@ -219,6 +286,9 @@ tk.Label(frame_add, text="Add New Plant", font=("Arial",62), bg=BG_COLOR, fg=("b
 tk.Label(frame_add, text="Name:", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(35, 20))
 entry_name = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_name.pack(pady=(0, 20))
+
+
+
 
 tk.Label(frame_add, text="Humidity (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_humidity = tk.Entry(frame_add, font=("Arial", 20), width=40)
@@ -232,8 +302,16 @@ tk.Label(frame_add, text="Temperature (C):", font=("Arial Bold", 20), bg=BG_COLO
 entry_temperature = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_temperature.pack(pady=(0, 15))
 
+
+
 tk.Button(frame_add, text="Add Plant", font=("Ariel", 20), bg=BUTTON_COLOR, fg="#000000", command=add_plant, height=1, width=8).pack(pady=(30, 50))
 # Arduino Data
+def sensor2lux(lightdata):
+    if round(493*math.log(0.07*lightdata, 5)) <= 0:
+        return 0
+    else:
+        return round(493*math.log(0.07*lightdata, 5))
+
 def readserial(comport, baudrate):
 
     ser = serial.Serial(comport, baudrate, timeout=0.1)         # 1/timeout is the frequency at which the port is read
@@ -245,7 +323,7 @@ def readserial(comport, baudrate):
             if len(sensordata) < 3:
                 if data[0] == "L":
                     LLevel = int(str(data)[1:len(data)])
-                    sensordata['Light'] = LLevel
+                    sensordata['Light'] = sensor2lux(LLevel)
                 if data[0] == "T":
                     TLevel = int(round(float(str(data)[1:len(data)])))
                     sensordata['Temp'] = TLevel
@@ -256,6 +334,11 @@ def readserial(comport, baudrate):
                 print(sensordata)
                 return sensordata
 
+def on_frame_configure(event):
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    center_frame_position()
+
+frame_add.bind("<Configure>", on_frame_configure)
 
 
 if __name__ == '__main__':
