@@ -75,7 +75,15 @@ inventory_table = None
 # Dashboard functions 
 dashboard_window = None
 
-
+def datasplice(numrange):
+    numrange = str(numrange
+    rangestart = ""
+    for i in numrange:
+        if i == "-":
+            break
+        else:
+            rangestart += i
+        
 
 def open_dashboard():
     global dashboard_window
@@ -107,7 +115,9 @@ def open_dashboard():
         # Populate table with existing plants in database
         dashboard_table.insert("", "end", values=("Plant", readserial("COM3", 9600)["Humidity"], readserial("COM3", 9600)["Light"], readserial("COM3", 9600)["Temp"]))
 
-        
+        if readserial('COM3', 9600)["Humidity"] > entry_humidity.get():
+            tk.Label(dashboard_window, text=(entry_name), "'s humidity is high!"), font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
+            tk.Label(dashboard_window, text=(entry_name), "'s humidity is low!"), font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
 
 def close_dashboard():
     global dashboard_window
