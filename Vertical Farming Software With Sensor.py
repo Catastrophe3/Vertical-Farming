@@ -52,11 +52,11 @@ def add_plant():
     if humidity.isdigit and light.isdigit and temperature.isdigit:
         pass
     else:
-        messagebox.showerror("Error", "humidity, Light, and Temperature must be a number!")
+        messagebox.showerror("Error", "humidity, Light, and Temperature must be a range/number!")
         return
     
     # Add to inventory database
-    new_plant_database[name] = {"Humidity": humidity, "Light": light, "Temperature": temperature}
+    new_plant_database[name] = {"Humidity": humidity, "Light": light, "Temp": temperature}
     messagebox.showinfo("Success!", f"{name.capitalize()} has been added to the database!")
     # Clear input boxes
     entry_name.delete(0, tk.END)
@@ -76,13 +76,24 @@ inventory_table = None
 dashboard_window = None
 
 def datasplice(numrange):
-    numrange = str(numrange
-    rangestart = ""
-    for i in numrange:
-        if i == "-":
-            break
-        else:
-            rangestart += i
+    numrange = numrange.strip('%')  # Remove the percentage sign if present
+    if '-' in numrange:
+        # Split into two parts
+        rangestart, rangeend = numrange.split('-')
+        return int(rangestart), int(rangeend)
+    else:
+        # If there's no range, return the number with None as the second value
+        return int(numrange), None
+
+
+def get_most_recent_plant():
+    if new_plant_database:
+        # Get the last added plant name
+        most_recent_plant = list(new_plant_database.keys())[-1]
+        return most_recent_plant
+    else:
+        return None  # or you can return an empty string or a message if no plants are added
+          
         
 
 def open_dashboard():
@@ -111,13 +122,38 @@ def open_dashboard():
             dashboard_table.column(col, width=150, anchor="center")
 
         dashboard_table.pack(fill=tk.BOTH, expand=True, padx=20, pady=130)
-
+        print(entry_name.get())
         # Populate table with existing plants in database
         dashboard_table.insert("", "end", values=("Plant", readserial("COM3", 9600)["Humidity"], readserial("COM3", 9600)["Light"], readserial("COM3", 9600)["Temp"]))
+        light_range = datasplice(new_plant_database[get_most_recent_plant()]['Light'])
+        humidity_range = datasplice(new_plant_database[get_most_recent_plant()]['Humidity'])
+        temp_range = datasplice(new_plant_database[get_most_recent_plant()]['Temp'])
+        sensor_light = readserial('COM3', 9600)["Light"]
+        sensor_humidity = readserial('COM3', 9600)["Humidity"]
+        sensor_temp = readserial('COM3', 9600)["Temp"]
+        if sensor_light > light_range[0] and sensor_light < light_range[1]:
+            pass
+        elif sensor_light < light_range[0]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Light is low!")
+        elif sensor_light > light_range[1]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Light is high!")
+        if sensor_humidity > humidity_range[0] and sensor_humidity < humidity_range[1]:
+            pass
+        elif sensor_humidity < humidity_range[0]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Humidity is low!")
+        elif sensor_humidity > humidity_range[1]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Humidity is high!")
+        if sensor_temp > temp_range[0] and sensor_temp < temp_range[1]:
+            pass
+        elif sensor_temp < temp_range[0]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Temp is low!")
+        elif sensor_temp > temp_range[1]:
+            messagebox.showinfo("Notification", f"{entry_name.get().capitalize()} Temp is high!")
+            
+            
 
-        if readserial('COM3', 9600)["Humidity"] > entry_humidity.get():
-            tk.Label(dashboard_window, text=(entry_name), "'s humidity is high!"), font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
-            tk.Label(dashboard_window, text=(entry_name), "'s humidity is low!"), font=("Arial", 18), bg="#FFFFFF", fg="#000000").pack(pady=60)
+
+      
 
 def close_dashboard():
     global dashboard_window
@@ -154,7 +190,7 @@ def open_inventory():
 
         # Populate table with existing plants in database
         for name, data in new_plant_database.items():
-            inventory_table.insert("", "end", values=(name, data["Humidity"], data["Light"], data["Temperature"]))
+            inventory_table.insert("", "end", values=(name, data["Humidity"], data["Light"], data["Temp"]))
 
 def close_inventory():
     global inventory_window
@@ -238,9 +274,6 @@ inventory_button.pack(pady=10)
 recommendations_button = tk.Button(button_frame, text="Recommendations", font=("Helvetica Bold", 18), bg="#2ecc71", fg="black", command=open_recommendations)
 recommendations_button.pack(pady=2.5)
 
-# Create content frame inside centered container
-
-
 # Create scrollable canvas
 # Scrollable Main Frame
 main_frame = tk.Frame(root, bg=BG_COLOR)
@@ -299,10 +332,10 @@ entry_name.pack(pady=(0, 20))
 
 
 
-
 tk.Label(frame_add, text="Humidity (RH%):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_humidity = tk.Entry(frame_add, font=("Arial", 20), width=40)
 entry_humidity.pack(pady=(0, 20))
+
 
 tk.Label(frame_add, text="Light (Lux):", font=("Arial Bold", 20), bg=BG_COLOR, fg=FG_COLOR).pack(pady=(15, 15))
 entry_light = tk.Entry(frame_add, font=("Arial", 20), width=40)
@@ -341,7 +374,6 @@ def readserial(comport, baudrate):
                     HLevel = int(round(float(str(data)[1:len(data)])))
                     sensordata['Humidity'] = HLevel
             elif len(sensordata) == 3:
-                print(sensordata)
                 return sensordata
 
 def on_frame_configure(event):
